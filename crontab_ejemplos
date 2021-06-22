@@ -1,0 +1,28 @@
+# Definicion de variables
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+TZ=America/Argentina/Buenos_Aires
+
+# .--------------- minuto (0-59) 
+# |  .------------ hora (0-23)
+# |  |  .--------- día del mes (1-31)
+# |  |  |  .------ mes (1-12) o jan,feb,mar,apr,may,jun,jul... (meses en inglés)
+# |  |  |  |  .--- día de la semana (0-6) (domingo=0 ó 7) o sun,mon,tue,wed,thu,fri,sat (días en inglés) 
+# |  |  |  |  |
+# *  *  *  *  *  comando a ejecutar
+
+## Apagado del jboss todos los dias a las 4:00 am
+## Whit docker-compose restart: unless-stopped means restart de container
+#0 4 * * *    pkill -15 java
+
+## Borrado de logs los 1ros de cada mes
+#0 0 1 * *    rm -f /opt/dcm4chee/server/default/log/server.log.*
+
+#30 10 * * 1 /usr/bin/who >> /var/log/usuarios.txt
+#Ejecuta la orden who todos los lunes a las 10:30 y guarda la salida en el archivo usuarios.txt 
+
+#0,30 * * * 1 /usr/bin/who >> /var/log/usuarios.txt
+#Ejecuta la orden who todos los lunes cada media hora y guarda la salida en el archivo usuarios.txt 
+
+*/15 * * * * /usr/bin/who >> /var/log/usuarios.txt
+#Ejecuta la orden who cada 15 minutos y guarda la salida en el archivo usuarios.txt 

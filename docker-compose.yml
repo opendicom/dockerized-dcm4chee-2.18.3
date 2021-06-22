@@ -1,0 +1,40 @@
+version: '3.7'
+services:
+  mysql:
+        container_name: opendicom_mysql
+        image: mysql:5.7
+        environment:
+          TZ: 'America/Argentina/Buenos_Aires'
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: pacsdb
+          MYSQL_USER: pacs
+          MYSQL_PASSWORD: pacs
+        volumes:
+          - mysql_data:/var/lib/mysql
+          
+          # Uncomment if needed
+          # - ./create-mysql.sql:/docker-entrypoint-initdb.d/create-mysql.sql
+  dcm4chee:
+        container_name: opendicom_dcm4chee
+        image: dockerized-dcm4chee2.18.3:v1.1
+        environment:
+          TZ: 'America/Argentina/Buenos_Aires'
+          MYSQL_HOST: opendicom_mysql   # Same as container_name or mysql service name
+          MYSQL_PORT: 3306              # Default: 3306   Change if needed 
+          MYSQL_DATABASE: pacsdb        # Default: pacsdb Change if needed, same as MYSQL_DATABASE in mysql service
+          MYSQL_USER: pacs              # Default: pacs   Change if needed, same as MYSQL_USER in mysql service 
+          MYSQL_PASSWORD: pacs          # Default: pacs   Change if needed, same as MYSQL_PASSWORD in mysql service 
+          MYSQL_CONNECT_RETRY: 30       # Default: 30     Change if needed.
+        ports:
+          - 8080:8080 
+          - 11112:11112
+        volumes:
+          - dcm4chee_conf:/opt/dcm4chee/server/default/
+          - dcm4chee_dicom:/opt/dcm4chee/server/default/archive/
+          #- ./crontab_file:/crontab_file
+
+volumes:
+  dcm4chee_conf:
+  dcm4chee_dicom:
+  crontab_file:
+  mysql_data:
