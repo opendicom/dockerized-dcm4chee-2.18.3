@@ -107,7 +107,7 @@ Variable opcional. Valor por defecto `pacs`
 Especifica el nombre de usuario que utiliza dcm4chee-2.18.3 para la conexión a la base de datos
 ## `MYSQL_PASSWORD`
 Variable opcional. Valor por defecto `pacs`
-Especifica la contraseña que utiliza dcm4chee-2.18.3 para la conexión a la datos
+Especifica la contraseña que utiliza dcm4chee-2.18.3 para la conexión a la base de datos
 
 ## `MYSQL_CONNECT_RETRY`
 Variable opcional. Valor por defecto `30`
