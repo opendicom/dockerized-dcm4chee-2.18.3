@@ -16,7 +16,7 @@ services:
           # - ./create-mysql.sql:/docker-entrypoint-initdb.d/create-mysql.sql
   dcm4chee:
         container_name: opendicom_dcm4chee
-        image: dockerized-dcm4chee2.18.3:v1.1
+        image: opendicom/dcm4chee-2.18.3:v1.0.0
         environment:
           TZ: 'America/Argentina/Buenos_Aires'
           MYSQL_HOST: opendicom_mysql   # Same as container_name or mysql service name

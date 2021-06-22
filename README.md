@@ -15,7 +15,7 @@ Se equipó esta imagen con el demonio cron ejecutado en segundo plano, pues es p
 
 Esta instancia es absolutamente de prueba, pues cualquier configuración o archivo enviado será eliminado al finalizar el contenedor. 
 ```bash
-docker run --rm --name nombre_contenedor -d dockerized-dcm4chee2.18.3:v1.0
+docker run --rm --name nombre_contenedor -d opendicom/dcm4chee-2.18.3:<tag>
 ```
 
 # Persistencia
@@ -40,7 +40,7 @@ Este ejemplo asume tener 1 directorio creado previamente para repositorio dicom.
 docker run --name nombre_contenedor -d \
 	-v /data/archive:/opt/dcm4chee/server/default/archive/ \
 	-v dcm4chee_vol:/opt/dcm4chee/server/default/ \
-	dockerized-dcm4chee2.18.3:v1.0
+	opendicom/dcm4chee-2.18.3:<tag>
 ```
 
 Nótese la diferencia entre los volúmenes. El primer volumen es de tipo Bind y el segundo Named volume.
@@ -50,7 +50,7 @@ Cron por defecto busca cambios en  `/etc/crontab`y `/etc/cron.d/*`  cuando detec
 
 Por tal motivo dockerized-dcm4chee2.18.3 maneja cron con cierta peculiaridad. Existe un archivo `/crontab_file` quien contiene la configuración de cron deseada. Cada vez que el contenedor es creado carga la configuración de este archivo a memoria. Si este archivo es cambiado luego de que el contenedor inició será necesario cargar manualmente a memoria la configuración o reiniciar el contenedor.
 
-## Cargar la configuración de cron de forma manual
+## Cargar la configuración cron de forma manual
 
 Para cargar de forma manual la configuración de cron luego que modificó el archivos /crontab_file
 
@@ -84,7 +84,7 @@ docker run --name nombre_contenedor -d \
     -v /data/archive:/opt/dcm4chee/server/default/archive/ \
 	-v dcm4chee_vol:/opt/dcm4chee/server/default/ \
     -v /host/path/crontab_file:/crontab_file
-	dockerized-dcm4chee2.18.3:v1.0
+	opendicom/dcm4chee-2.18.3:<tag>
 ```
 
 # Variables de Entorno
@@ -112,8 +112,3 @@ Especifica la contraseña que utiliza dcm4chee-2.18.3 para la conexión a la bas
 ## `MYSQL_CONNECT_RETRY`
 Variable opcional. Valor por defecto `30`
 Cuando el contenedor inicia y antes de arrancar dcm4chee-2.18.3 comprueba la conexión a la base de datos, si falla repite la comprobación cada `MYSQL_CONNECT_RETRY` segundos hasta que se establezca la conexión.
-
-
-# Tags Soportados
-
-- `1.0` 
