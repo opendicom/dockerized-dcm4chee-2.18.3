@@ -27,7 +27,7 @@ done
 
 # Replace mysql setting in datasource file
 sed -i "s|<connection-url>.*</connection-url>|<connection-url>jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}</connection-url>|" /opt/dcm4chee/server/default/deploy/pacs-mysql-ds.xml
-sed -i "s|<user-name>:*</user-name>|<user-name>${MYSQL_USER}</user-name>|" /opt/dcm4chee/server/default/deploy/pacs-mysql-ds.xml
+sed -i "s|<user-name>.*</user-name>|<user-name>${MYSQL_USER}</user-name>|" /opt/dcm4chee/server/default/deploy/pacs-mysql-ds.xml
 sed -i "s|<password>.*</password>|<password>${MYSQL_PASSWORD}</password>|" /opt/dcm4chee/server/default/deploy/pacs-mysql-ds.xml
 
 
