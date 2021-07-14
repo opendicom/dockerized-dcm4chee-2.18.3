@@ -112,3 +112,35 @@ Especifica la contraseña que utiliza dcm4chee-2.18.3 para la conexión a la bas
 ## `MYSQL_CONNECT_RETRY`
 Variable opcional. Valor por defecto `30`
 Cuando el contenedor inicia y antes de arrancar dcm4chee-2.18.3 comprueba la conexión a la base de datos, si falla repite la comprobación cada `MYSQL_CONNECT_RETRY` segundos hasta que se establezca la conexión.
+
+## `JAVA_OPTS` 
+
+Variable opcional.
+Determina la configuración del servidor de aplicaciones jboss utilizado por dcm4chee-2.18.3.
+Podrías necesitar modificar los valores `dcm4chee.nodename`,`Xms` y `Xmx` de la siguiente forma:
+
+```yaml
+JAVA_OPTS: "-Ddcm4che.archive.nodename=DCM4CHEE -Xms512m -Xmx1024m -XX:MaxPermSize=128m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000"
+```
+
+# Docker-compose
+
+El archivo `docker-compose.yml` en [este repo](https://github.com/opendicom/dockerized-dcm4chee-2.18.3) presenta la configuración necesaria para iniciar una nueva instancia de dockerized-dcm4chee-2.18.3. Tenga en cuenta que necesita los siguientes 2 archivos extras `create-mysql.sql` y `crontab_file` 
+
+- Descargar archivos necesarios a un mismo directorio
+  - [docker-compose.yml](docker-compose.yml)
+  - [create-mysql.sql](create-mysql.sql)
+  - [crontab_file](crontab_file)
+
+- Iniciar el compose
+
+  ```bash
+  docker-compose up -d
+  ```
+
+  
+
+
+
+
+

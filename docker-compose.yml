@@ -11,30 +11,28 @@ services:
           MYSQL_PASSWORD: pacs
         volumes:
           - mysql_data:/var/lib/mysql
-          
-          # Uncomment if needed
-          # - ./create-mysql.sql:/docker-entrypoint-initdb.d/create-mysql.sql
+          - ./create-mysql.sql:/docker-entrypoint-initdb.d/create-mysql.sql
   dcm4chee:
         container_name: opendicom_dcm4chee
-        image: opendicom/dcm4chee-2.18.3:v1.0.0
+        image: opendicom/dcm4chee-2.18.3:latest # You may want to change the tag name
         environment:
           TZ: 'America/Argentina/Buenos_Aires'
           MYSQL_HOST: opendicom_mysql   # Same as container_name or mysql service name
-          MYSQL_PORT: 3306              # Default: 3306   Change if needed 
+          MYSQL_PORT: 3306              # Default: 3306   Change if needed
           MYSQL_DATABASE: pacsdb        # Default: pacsdb Change if needed, same as MYSQL_DATABASE in mysql service
-          MYSQL_USER: pacs              # Default: pacs   Change if needed, same as MYSQL_USER in mysql service 
-          MYSQL_PASSWORD: pacs          # Default: pacs   Change if needed, same as MYSQL_PASSWORD in mysql service 
+          MYSQL_USER: pacs              # Default: pacs   Change if needed, same as MYSQL_USER in mysql service
+          MYSQL_PASSWORD: pacs          # Default: pacs   Change if needed, same as MYSQL_PASSWORD in mysql service
           MYSQL_CONNECT_RETRY: 30       # Default: 30     Change if needed.
+          JAVA_OPTS: "-Ddcm4che.archive.nodename=DCM4CHEE -Xms512m -Xmx1024m -XX:MaxPermSize=128m -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000"
         ports:
-          - 8080:8080 
+          - 8080:8080
           - 11112:11112
         volumes:
           - dcm4chee_conf:/opt/dcm4chee/server/default/
           - dcm4chee_dicom:/opt/dcm4chee/server/default/archive/
-          #- ./crontab_file:/crontab_file
+          - ./crontab_file:/crontab_file
 
 volumes:
   dcm4chee_conf:
   dcm4chee_dicom:
-  crontab_file:
   mysql_data:

@@ -24,5 +24,5 @@ TZ=America/Argentina/Buenos_Aires
 #0,30 * * * 1 /usr/bin/who >> /var/log/usuarios.txt
 #Ejecuta la orden who todos los lunes cada media hora y guarda la salida en el archivo usuarios.txt 
 
-*/15 * * * * /usr/bin/who >> /var/log/usuarios.txt
+#*/15 * * * * /usr/bin/who >> /var/log/usuarios.txt
 #Ejecuta la orden who cada 15 minutos y guarda la salida en el archivo usuarios.txt 
